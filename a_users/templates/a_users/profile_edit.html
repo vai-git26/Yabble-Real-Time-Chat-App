@@ -1,0 +1,89 @@
+{% extends 'layouts/box.html' %}
+{% block title %}
+{% block content %}
+
+
+<style>
+.center-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#avatar {
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem 0;
+}
+form {
+    width: 100%;
+    max-width: 400px;
+}
+</style>
+
+<div class="center-container">
+    {% if onboarding %}
+        <h1>Complete your Profile</h1>
+    {% else %}
+        <h1>Edit your Profile</h1>
+    {% endif %}    <div style="text-align:center;">
+        <img id="avatar" src="{{ user.profile.avatar }}" />
+        <div>
+            <h1 id="displayname">{{ user.profile.displayname|default:"" }}</h1>
+            <div>@{{ user.username }}</div>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+        {% if onboarding %}
+            <a class="button button-gray ml-1" href="{% url 'home' %}">Skip</a>
+        {% else %}
+            <a class="button button-gray ml-1" href="{{ request.META.HTTP_REFERER }}">Cancel</a>
+        {% endif %}    
+    </form>
+</div>
+
+
+
+
+<script>
+    
+    // This updates the avatar
+    const fileInput = document.querySelector('input[type="file"]');
+
+    fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const image = document.querySelector('#avatar');
+
+    if (file && file.type.includes('image')) {
+        const url = URL.createObjectURL(file);
+        image.src = url;
+    }
+    });
+
+    // This updates the name
+    const display_nameInput = document.getElementById('id_displayname');
+    const display_nameOutput = document.getElementById('displayname');
+
+    display_nameInput.addEventListener('input', (event) => {
+        display_nameOutput.innerText = event.target.value;
+    });
+
+</script>
+<style>
+#avatar {
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+{% endblock %} 
+

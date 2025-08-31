@@ -1,0 +1,38 @@
+{% extends 'layouts/box.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/edit_img.css' %}">
+
+<h1>Edit Chat</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }} <!-- Render the form fields from ChatRoomEditForm -->
+
+    <div class="members-section">
+        <h2>Members</h2>
+        {% for member in chat_group.members.all %}
+        <div class="member-row">
+            <div class="member-info">
+                <img class="avatar" src ="{{ member.profile.avatar }}" alt="{{ member.profile.name }}'s avatar">
+                <div class="member-text">
+                    <span class="member-name">{{ member.profile.name }}</span>
+                    <span class="member-username">@{{ member.username }}</span>
+                </div>
+            </div>
+            {% if member != chat_group.admin %}
+            <div class="remove-checkbox">
+                <input type="checkbox" name="remove_members" value="{{ member.id }}" class="relative w-6 h-6 cursor-pointer appearance-none rounded-md border after:absolute after:left-1/2 after:top-1/2 after:transform after:-translate-x-1/2 after:-translate-y-1/2 after:w-4 after:h-4 after:bg-[url('https://img.icons8.com/ffffff/24/multiply.png')] after:bg-center after:bg-no-repeat checked:bg-red-500 hover:ring hover:ring-gray-300 focus:outline-none">
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="submit-button">Update</button>
+</form>
+
+<a href="{% url 'chatroom-delete' chat_group.group_name %}" class="delete-chat">Delete Chatroom</a>
+
+{% endblock content %}

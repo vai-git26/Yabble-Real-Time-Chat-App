@@ -1,0 +1,98 @@
+.video-call-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+}
+
+.video-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  bottom:25px;
+}
+
+
+.call-panel {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hidden {
+  display: none;
+}
+
+
+.call-window {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  width: 92vw;
+  max-width: 1000px;
+}
+
+
+.call-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.call-actions button {
+  margin-left: 8px;
+}
+
+
+.accept-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #16a34a;
+  color: white;
+  cursor: pointer;
+}
+
+
+.hangup-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
+@media (min-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+video {
+  width: 100%;
+  border-radius: 8px;
+  background: black;
+}

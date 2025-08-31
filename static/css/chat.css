@@ -1,0 +1,526 @@
+/* Chat container styling */
+#chat_window {
+    height: 45rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e2124;
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #2c2f33;
+    width:34%;
+    margin: auto;
+    margin-top: 20px
+}
+
+
+
+/* Online users count */
+.online-count {
+    display: flex;
+    justify-content: center;
+    color: #4ade80;
+    background-color: #1e2124;
+    padding: 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #2c2f33;
+    gap: 5px;
+    text-decoration: none;
+}
+
+
+#url1{
+    text-decoration: none;
+    color: white;
+}
+
+
+/* Chat container */
+#chat_container {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #1e2124;
+
+    
+}
+
+#chat_container::-webkit-scrollbar {
+    width: 6px;
+}
+#chat_container::-webkit-scrollbar-track {
+    background: #1e2124;
+}
+#chat_container::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    border-radius: 3px;
+}
+
+/* Chat messages list */
+#chat_messages {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important; /* Very tight spacing - 1.6px between messages */
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Right-aligned user message */
+
+
+.message-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.bubble-right {
+    background-color: #bbf7d0 !important;
+    color: #1e2124 !important;
+    /* padding: 0.25rem 0.4rem !important; Very compact padding */
+    border-radius: 1.25rem 1.25rem 0 1.25rem !important;
+    max-width: 70% !important;
+    word-wrap: break-word !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    margin: 0 !important;
+    padding: 0.95rem 1.25rem ;
+
+}
+
+/* Left-aligned messages */
+
+.message-left {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    gap: 0.3rem !important;    
+}
+
+.bubble-left {
+    background-color: white !important;
+    color: #1e2124 !important;
+    padding: 0.95rem 1.25rem !important; /* Compact padding like right bubble */
+    /* border-radius: 0.8rem 0.8rem 0.8rem 0.2rem !important; */
+    border-radius: 1.25rem 1.25rem 1.25rem 0 !important;
+
+    max-width: 70% !important;
+    width: fit-content !important; /* Only take space needed for content */
+    word-wrap: break-word !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    margin: 0 !important;
+    display: inline-block !important; /* Ensure it sizes to content */
+}
+   
+ 
+
+
+
+/* Avatar */
+.avatar {
+    width: 1.75rem; /* Reduced from 2.25rem for smaller avatars */
+    height: 1.75rem; /* Reduced from 2.25rem for smaller avatars */
+    min-width: 1.75rem;  /* Prevent shrinking */
+    min-height: 1.75rem; /* Prevent shrinking */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #2c2f33; /* Reduced border width */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent flex from shrinking the avatar */
+}
+
+/* Avatar link wrapper */
+.avatar-link {
+    flex-shrink: 0; /* Prevent the avatar container from shrinking */
+    display: block;
+}
+
+/* Message content wrapper */
+.message-content-wrapper {
+    flex: 1;
+    min-width: 0; /* Allow content to shrink if needed */
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Message bubble row (avatar + bubble) */
+.message-bubble-row {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 1 rem !important; /* Gap between avatar and message bubble */
+}
+
+
+
+/* Meta info below bubble */
+.user-info {
+    font-size: 0.7rem !important; /* Slightly smaller text */
+    margin-top: 0.1rem !important; /* Small space above user info */
+    margin-left: 0.25rem !important; /* Small left margin */
+    margin-bottom: 0 !important;
+}
+
+.username {
+    color: white;
+    font-weight: 500;
+}
+
+.handle {
+    color: #9ca3af;
+    margin-left: 0.25rem;
+}
+
+
+.text-black {
+    width:496px;
+}
+
+.message-input-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    padding: 12px;
+    background-color: #00000038;
+    border-top: 1px solid #2c2f33;
+    box-sizing: border-box;
+  
+}
+
+.message-input-container form {
+    display: -webkit-flex;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+   
+    background-color: #ffffff;
+   
+}
+
+
+.textarea, textarea, input {
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    background: transparent; /* Match wrapper background */
+    border: none; /* Remove default border to rely on wrapper */
+}
+
+#chat_message_form {
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+.custom-input:focus {
+    outline: 2px solid #3b82f6;
+    background-color: #fff;
+}
+
+
+/* Animation for fade-in message */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.3s ease;
+}
+
+/* Apply this CSS to ensure proper horizontal layout */
+.user-info {
+  display: flex;
+  flex-direction: row;     /* Ensure horizontal layout */
+  align-items: center;
+  gap: 2px;
+  padding: 3px 12px;
+  border-radius: 12px;
+  color: white;
+
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-handle {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.user-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+#name_1{
+   font-size: 30px;
+   padding-left: 33%;
+   margin-bottom:-25px;
+
+
+}
+
+
+
+.member-list {
+    display: flex;
+    gap: 1rem; /* Adjust the gap as needed */
+    padding: 0;
+    list-style: none;
+}
+
+.member-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#member-avatar{
+    width: 30px; /* Set a consistent width */
+    height: 30px; /* Set a consistent height */
+    object-fit: cover; /* Ensures the image fits without distortion */
+    border-radius: 50%;
+}
+
+/* Green dot for online status */
+.green-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #22c55e; /* Tailwind green-500 */
+    border-radius: 50%;
+    border: 2px solid white; /* white border for better visibility */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+}
+
+
+/* file sharing */
+
+
+#chat_file_form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 200px; /* space between file input and button */
+}
+
+.file-input {
+
+    border: 1px solid #000000;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    padding-left: 10px;
+    
+}
+
+#id_file{
+    background-color: #1E2124;
+    color: white;
+    padding-left: 10px;
+}
+
+.submit-btn {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 6px 12px;
+    height: fit-content;
+    background-color: #4a90e2; /* default button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;   
+
+
+}
+
+.submit-btn:hover {
+    background-color: #357ab7;
+}
+
+
+
+#typing-indicator {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  padding-left: 8px;
+  height: 20px;   /* adapt as needed */
+}
+
+/* recording */
+
+
+
+.voice-input-container {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-bottom:10px;
+  margin-top: -10px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 108px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px;
+  background: white;
+  height: 35px;
+  width: 9%; /* Allow the input row to expand with content */
+  margin-top: 10px;
+
+}
+
+/* .input-row:hover::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: rgba(0, 0, 255, 0.2);
+  z-index: -1;
+  pointer-events: none;
+} */
+
+/* Style for the input */
+.input-row input[type="text"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+#record-btn {
+  background: none;
+  border: none;
+  font-size: 1.0rem; /* Increase icon size if needed */
+  cursor: pointer;
+  order: -1; /* Keeps the button to the left */
+  margin-right: 8px; /* Space between mic and input */
+  padding: 4px; /* Ensure the button has some padding */
+  line-height: 1; /* Align text/icon vertically */
+  bottom: 50px;
+  
+}
+
+.voice-controls {
+  margin-top: 8px;
+  display: none;
+  gap: 8px;
+  align-items: center;
+  width: 200px;
+  height: 30px;
+}
+
+#stop-btn {
+  padding: 4px 8px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#record-status {
+  color: #555;
+}
+
+.audio-player, audio {
+  width: 60%;
+  height: 25px;
+}
+
+
+/* tubr nine */
+
+/* Audio player styling */
+.bubble-right audio, .bubble-left audio {
+    width: 200px; /* Reduced width */
+    height: 36px; /* Reduced height */
+    display: block;
+    margin: 0;
+    border-radius: 8px;
+}
+
+/* Special styling for bubbles containing audio */
+.bubble-right:has(audio), .bubble-left:has(audio) {
+    padding: 6px; /* Reduced padding */
+    max-width: 220px; /* Limit maximum width */
+    min-width: auto; /* Allow bubble to shrink */
+    width: auto; /* Let width be determined by content */
+}
+
+
+/* Make sure the audio controls are visible but compact */
+audio::-webkit-media-controls-panel {
+    background-color: #f0f0f0;
+    padding: 0;
+}
+
+/* Hide some controls to save space */
+audio::-webkit-media-controls-timeline {
+    width: 100px; /* Make timeline smaller */
+}
+
+
+
+/* Audio bubble specific styling */
+.audio-bubble {
+    padding: 6px !important; /* Reduced padding */
+    max-width: 220px !important; /* Limit maximum width */
+    min-width: auto !important; /* Allow bubble to shrink */
+    width: auto !important; /* Let width be determined by content */
+}
+
+/* Audio player styling */
+.audio-player {
+    width: 200px; /* Reduced width */
+    height: 36px; /* Reduced height */
+    display: block;
+    margin: 0;
+    border-radius: 8px;
+}

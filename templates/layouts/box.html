@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+
+{% block layout %}
+<style>
+.box-content {
+    display: block;
+    max-width: 700px; /* similar to max-w-3xl */
+    margin: 0 auto;
+    padding: 1rem; /* similar to md:p-12 */
+}
+.box-inner {
+    background: white;
+    border-radius: 1rem; /* similar to rounded-2xl */
+    box-shadow: 0px 4px 100px rgba(0,0,0,0.08); /* similar to drop-shadow-2xl */
+    width: 100%;
+    padding: 2rem;
+}
+</style>
+<div class="box-content">
+    <div class="box-inner">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+{% endblock layout %}

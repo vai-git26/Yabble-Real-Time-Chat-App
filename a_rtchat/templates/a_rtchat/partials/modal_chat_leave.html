@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/leave.css' %}">
+<!-- HTML (leave_modal.html) -->
+<div x-data="{ modal_open: false }">
+    <div x-show="modal_open" class="overlay" x-cloak></div>
+    <div x-show="modal_open" class="modal-container" x-cloak>
+        <div class="modal-wrapper">
+            <div @click.away="modal_open = false" class="modal-content">
+                <h1 class="modal-title">Leave this chat?</h1>
+                <form method="POST" action="{% url 'chatroom-leave' chat_group.group_name %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-red">Yes</button>
+                    <a @click="modal_open = false" class="btn-gray">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span>
+    <a href="{% url 'home'  %}" @click="modal_open = true" class="leave-link">Leave Chatroom</a>
+</span>

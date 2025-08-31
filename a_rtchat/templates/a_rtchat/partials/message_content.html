@@ -1,0 +1,23 @@
+{% if message.body %}
+    <span>{{ message.body }}</span>
+{% elif message.file %}
+    {% if message.is_image %}
+        <div class="flex flex-col items-start">
+            <img id="chat_img" class="chat-image max-w-72 min-w-8" src="{{ message.file.url }}" alt="">
+            <!-- download link under image -->
+            <a class="cursor-pointer italic text-blue-400 hover:underline mt-1" 
+               href="{{ message.file.url }}" download>
+                📎 {{ message.filename }}
+            </a>
+        </div>
+    {% elif message.is_audio %}
+        <audio src="{{ message.file.url }}" controls class="audio-player"></audio>
+        📎 <a class="cursor-pointer italic hover:underline" href="{{ message.file.url }}" download>
+            {{ message.filename }}
+        </a>
+    {% else %}
+        📎 <a class="cursor-pointer italic hover:underline" href="{{ message.file.url }}" download>
+            {{ message.filename }}
+        </a>
+    {% endif %}
+{% endif %}

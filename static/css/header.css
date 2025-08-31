@@ -1,0 +1,128 @@
+    [x-cloak] {
+      display: none !important;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* background-color: #2d3748; */
+      background-color: #242E43;
+      height: 5rem;
+      padding: 0 2rem;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    
+    header > div {
+      display: flex;
+      align-items: center;
+    }
+
+    header a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header img.h-6 {
+      height: 1.5rem;
+    }
+
+    header span {
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: block;
+      background-color: #2d3748;
+      position: relative;
+    }
+
+    ul.navitems {
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background-color: #242E43;
+    }
+
+    ul.navitems li {
+      margin: 0 0.5rem;
+    }
+
+    a.cursor-pointer {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    img.h-8 {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 9999px;
+      object-fit: cover;
+    }
+
+    img.w-4 {
+      width: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    div.dropdown {
+      position: absolute;
+      right: 0;
+      background: #fff;
+      color: #000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border-radius: 0.5rem;
+      width: 10rem;
+      padding: 0.5rem;
+      z-index: 20;
+    }
+
+    ul.hoverlist li a {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem 0;
+      color: #000;
+      text-decoration: none;
+    }
+
+    ul.hoverlist li a:hover {
+      background: #f3f4f6;
+    }
+
+    .dropdown ul {
+    list-style: none;
+    padding-left: 0px;
+    margin: 0;
+   }
+
+   ul.hoverlist {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the list items horizontally */
+   }
+
+   ul.hoverlist li a {
+    text-align: center;
+    width: 100%;
+   }  
+

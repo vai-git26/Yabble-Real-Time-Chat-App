@@ -1,0 +1,27 @@
+{% load static %}
+{% if message.author == user %}
+<li class="message-right fade-in-up" hx-swap-oob="beforeend:#chat_messages">
+    <div class="bubble-right">
+         {% include 'a_rtchat/partials/message_content.html' %}
+    </div>
+</li>
+{% else %}
+
+
+<!-- Other User's Message (Left) -->
+
+
+<li class="message-left fade-in-up" hx-swap-oob="beforeend:#chat_messages">
+    <a href="{% url 'profile' message.author.username %}" class="avatar-link">
+        <img class="avatar" src="{{ message.author.profile.avatar }}" alt="{{ message.author.username }}">
+    </a>
+    <div class="message-content-wrapper">
+        <div class="bubble-left">
+            {% include 'a_rtchat/partials/message_content.html' %}
+        </div>
+        <div class="user-info">
+            <span class="username">{{ message.author.profile.name}}</span> <span class="handle">@{{ message.author.username }}</span>
+        </div>
+    </div>
+</li>
+{% endif %}

@@ -1,0 +1,161 @@
+{% extends 'layouts/blank.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}?v=20250118">
+<link rel="stylesheet" href="{% static 'css/video_call.css' %}">
+
+
+<div class="container">
+
+  {% if chat_group.groupchat_name %}
+  <div class="flex justify-between">
+  <h2 id="name_1">{{ chat_group.groupchat_name }}</h2>
+  {% if user == chat_group.admin %}
+  <a style= "padding-right: 33%; padding-top:10px;"  href="{% url 'edit-chatroom' chat_group.group_name %}">
+    <div class="p-2 bg-g ray-200 hover:bg-blue-600 rounded-lg group">
+    <svg class="fill-gray-500 group-hover:fill-white" width="16" height="16">
+      <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path>
+    </svg>
+    </div>
+  </a>
+  {% endif %}   
+  </div>
+  <div style="display:flex; gap:8px; align-items:center; padding: 8px 0;">
+    <span id="push-status" style="color:#9ca3af; font-size: 0.9rem;"></span>
+  </div>
+  {% endif %}
+  <div id="chat_window">
+      <div class="online-count">
+        {% if other_user %}
+        <a href="{% url 'profile' other_user.username %}" class="user-link">
+          <div class="user-info">
+            <img class="avatar" src="{{ other_user.profile.avatar }}" alt="Avatar" />
+            <div class="user-text">
+              <span class="user-name">{{ other_user.get_full_name }}</span>
+            </div>
+            <div>
+            <span class="user-handle" style="color: white;">@{{ other_user.username }}</span>
+            </div>
+          </div>
+        </a>
+
+
+        {% elif chat_group.groupchat_name %}
+        
+        <ul id="groupchat-members" class="flex gap-4">
+            {% for member in chat_group.members.all %}
+            <li>
+              <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                  <img src="{{ member.profile.avatar }}" class="w-14 h-14 rounded-full object-cover" />
+                  {{ member.profile.name|slice:":10" }}
+              </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div id="online-icon"></div>
+        <span id="online-count" class="pr-1"></span>online
+        {% endif %}
+      </div>
+      
+      <div id="chat_container">
+        <ul id="chat_messages">
+          <!-- User Message (Right) -->
+          {% for message in chat_messages reversed%}
+          {% include 'a_rtchat/chat_message.html' %}
+          {% endfor %}
+        </ul>
+      </div>
+
+    
+    
+    <div class="message-input-container" >
+        {% csrf_token %}
+        <div class="voice-input-container">
+          <div class="input-row">
+            <button id="record-btn" type="button">🎤</button>
+          </div>
+
+          <div class="voice-controls">
+            <button id="stop-btn" type="button">Stop</button>
+            <span id="record-status">Recording...</span>
+          </div>
+        </div>
+        {% if show_video_call %}
+        <div class="video-call-controls">
+          <button id="btn-video" title="Video call" class="video-btn">📹</button>
+        </div>
+        {% endif %}
+        
+        <div id="call-panel" class="call-panel hidden">
+          <div class="call-window">
+            <div class="call-header">
+              <strong id="call-status">Calling…</strong>
+              <div class="call-actions">
+                <button id="btn-accept" class="accept-btn hidden">Accept</button>
+                <button id="btn-hang" class="hangup-btn">Hang up</button>
+              </div>
+            </div>
+            <div class="video-grid">
+              <video id="localVideo" autoplay playsinline muted></video>
+              <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+          </div>
+        </div>
+
+        <form id="chat_message_form" 
+            hx-ext="ws"
+            ws-connect="/ws/chatroom/{{ chatroom_name }}"
+            ws-send
+            hx-on::wsAfterSend="this.reset()"
+            hx-on::htmx:wsError="console.error('WebSocket error:', event.detail)">
+            {% csrf_token %}
+            {{ form }}
+        </form>
+        
+        
+    </div>
+    <form id="chat_file_form" enctype="multipart/form-data"
+          hx-post="{% url 'chat-file-upload' chat_group.group_name %}"
+          hx-target="#chat_messages"
+          hx-swap="beforeend"
+          hx-on::htmx:responseError="console.error('HTMX error:', event.detail)"
+          _="on htmx:beforeSend reset() me">
+
+        {% csrf_token %}  
+        
+        <input type="file" name="file" id="id_file" class="file-input">
+        <button type="submit" id="submit_1" class="submit-btn">Submit File</button>
+    </form>
+  </div>
+  {% if chat_group.members.exists and chat_group.group_name != "public-chat" %}
+  <div style="color: red; text-align: center;" class="leave-link" >
+    <a href="{% url 'chatroom-leave' chat_group.group_name %}">
+      {% include 'a_rtchat/partials/modal_chat_leave.html' %}
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+
+<meta name="vapid-public-key" content="{{ vapid_public_key }}">
+
+<script src="{% static 'js/service-worker-register.js' %}"></script>
+
+<script src="{% static 'js/push-notifications.js' %}"></script>
+
+<script>
+  const groupName = "{{ chat_group.group_name }}";
+</script>
+
+<script src="{% static 'js/voice.js' %}"></script>
+
+<script src="{% static 'js/scroll.js' %}"></script>
+
+<script src="{% static 'js/video_call.js' %}"></script>
+
+<script src="{% static 'js/membership.js' %}"></script>
+
+
+{% endblock %}

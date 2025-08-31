@@ -1,0 +1,53 @@
+{% extends 'layouts/blank.html' %}
+
+{% block title %}{% endblock %}
+{% block page_heading %}{% endblock %}
+{% block content %}
+
+<style>
+.profile-container {
+    max-width: 400px;
+    margin: 60px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+}
+.profile-avatar {
+    width: 144px;
+    height: 144px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+.profile-username {
+    color: #888;
+    margin-bottom: 8px;
+    margin-top: -12px;
+}
+.profile-info {
+    margin-top: 32px;
+    word-break: break-word;
+    
+}
+.button{
+    text-decoration:none;
+}
+
+</style>
+
+<div class="profile-container">
+    <img class="profile-avatar" src="{{ profile.avatar }}" />
+    <div style="text-align: center;">
+        <h1>{{ profile.name }}</h1>
+        <div class="profile-username">@{{ profile.user.username }}</div>
+        {% if profile.info %}
+        <div class="profile-info">{{ profile.info|linebreaksbr }}</div>
+        {% endif %}  
+        {% if profile.user != user %}
+        <a class="button" href="{% url 'start-chat' profile.user.username %}">Let's Talk</a>
+        {% endif %} 
+    </div>
+</div>
+
+{% endblock %}                 
